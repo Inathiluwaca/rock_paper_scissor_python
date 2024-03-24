@@ -23,43 +23,56 @@ def computer_choice():
     return computer_choose
 
 
-def run_choice(computer_choose,user_choice):
-  
-    win="You have won"
-    comp_win="Robo won."
+def run_choice(computer_choose, user_choice, computer_score, user_score):
+    win = "You have won"
+    comp_win = "Robo won."
+    
     if user_choice == "quit":
         print("Goodbye")
         return True
-    elif computer_choose=="paper" and user_choice == "scissor":
+    elif computer_choose == "paper" and user_choice == "scissor":
+        user_score += 1
         print(win)
-      
-    elif computer_choose =="scissor" and user_choice == "rock":
+        
+    elif computer_choose == "scissor" and user_choice == "rock":
+        user_score += 1
         print(win)
 
-    elif computer_choose== "rock" and  user_choice == "paper":
+    elif computer_choose == "rock" and user_choice == "paper":
+        user_score += 1
         print(win)
-      
-    if user_choice=="paper" and computer_choose== "scissor":
+        
+    elif user_choice == "paper" and computer_choose == "scissor":
+        computer_score += 1
         print(comp_win)
-      
-    elif user_choice =="scissor" and computer_choose == "rock":
+        
+    elif user_choice == "scissor" and computer_choose == "rock":
+        computer_score += 1
         print(comp_win)
-      
-    elif user_choice== "rock" and  computer_choose == "paper":
+        
+    elif user_choice == "rock" and computer_choose == "paper":
+        computer_score += 1
         print(comp_win)
- 
+    
     elif user_choice == computer_choose:
         print("Draw")
-    return False
+    
+    return computer_score, user_score
 
-if __name__=="__main__":
+if __name__ == "__main__":
     welcome()
+    computer_score = 0
+    user_score = 0
+    choices = options()
     for i in range(3):
-        choices=options()
-        user_choice=user_input(choices)
+        user_choice = user_input(choices)
         if user_choice == "quit":
-            break  
-        computer_choose =computer_choice()
-        if run_choice(computer_choose,user_choice):
-            break 
+            break
+        
+        computer_choose = computer_choice()
+        computer_score, user_score = run_choice(computer_choose, user_choice, computer_score, user_score)
+    
+    
+    print("User score:", user_score)
+    print("Computer score:", computer_score)
     print("Game is over.")
